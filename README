@@ -1,0 +1,20 @@
+Documentation.pdf - Contains basic description about the framework
+Docs - Contains javadocs of the mobile and server side of the framework code
+frameworkMobile - Contains the mobile side code of the framework
+frameworkServer - Contains the server side code of the framework
+Interface - Contains code of the conflict resolution interface
+
+Application - Contains code of a  sample application that uses the framework. The application records media data from the mobile and uploads them to the server. It also fetches media data uploaded by other phones.
+
+frameworkmobile.jar - The mobile side library of the framework
+frameworkServer.jar - The server side library of the framework
+sqlite-jdbc-3.7.2.jar - The library for using sqlite at the server
+
+The above libraries need to be included in any application that uses the framework.
+
+Print statements can be used to debug the server side application code.
+Print statements can be used to debug the mobile application code and adb can be used to view the same.
+
+
+
+

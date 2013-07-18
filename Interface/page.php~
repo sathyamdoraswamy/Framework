@@ -1,0 +1,57 @@
+<?php
+echo "<html>";
+echo "<body>";
+echo "<h1>WELCOME TO CONFLICT RESOLUTION INTERFACE!!!</h1>";
+session_start();
+echo "<form action=\"resolve.php\" method=\"post\" >";
+if($_SESSION['groupids'][$_SESSION['n']]!=null) {
+echo "<h3>CURRENT RECORD</h3><br>";
+$db = new SQLite3('/home/sathyam/Desktop/Interface/frameworkdb');
+$results1 = $db->query('SELECT * FROM server WHERE groupid=\''.$_SESSION['groupids'][$_SESSION['n']].'\' order by rowid');
+echo "(GROUPID,KEY,VALUE,USER,DATATYPE,TIMESTAMP,DEVICEID)";echo "<br><br>";
+while($row1 = $results1->fetchArray()) {
+echo $row1['groupid'];echo " , ";
+echo $row1['key'];echo " , ";
+echo $row1['value'];echo " , ";
+echo $row1['user'];echo " , ";
+echo $row1['datatype'];echo " , ";
+echo $row1['timestamp'];echo " , ";
+echo $row1['deviceid'];echo "<br>";
+}
+
+echo "<br><h3>CONFLICTING RECORDS</h3><br>";
+$results1 = $db->query('SELECT DISTINCT timestamp FROM serverbackup WHERE groupid=\''.$_SESSION['groupids'][$_SESSION['n']].'\'');
+while($row1 = $results1->fetchArray()) {
+$timestamp = $row1['timestamp'];
+$results = $db->query('SELECT rowid,* FROM serverbackup WHERE groupid=\''.$_SESSION['groupids'][$_SESSION['n']].'\' AND timestamp='.$timestamp.' order by rowid');
+echo "<input type=\"radio\" name=\"record\" value=\"$timestamp\">";;echo "<br>";
+while ($row = $results->fetchArray()) {
+echo $row['groupid'];echo " , ";
+echo $row['key'];echo " , ";
+echo $row['value'];echo " , ";
+echo $row['user'];echo " , ";
+echo $row['datatype'];echo " , ";
+echo $row['timestamp'];echo " , ";
+echo $row['deviceid'];echo "<br>";
+}
+}
+echo "<br>";
+echo "<input type=\"submit\" value=\"SUBMIT\">";
+echo "</form>";
+if($_SESSION['n']>0) {
+echo "<form action=\"previous.php\" >";
+echo "<input type=\"submit\" value=\"PREVIOUS\">";
+echo "</form>";
+}
+if($_SESSION['n']<($_SESSION['l']-1)) {
+echo "<form action=\"next.php\" >";
+echo "<input type=\"submit\" value=\"NEXT\">";
+echo "</form>";
+}
+}
+else {
+echo "<h3>No Records!!!</h3>";
+}
+echo "</body>";
+echo "</html>";
+?>

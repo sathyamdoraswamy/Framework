@@ -1,0 +1,2 @@
+Change the permission of a.sh, Interface folder to 0777 and assign owner as www-data(chown www-data a.sh)
+For sqlite3 delete statements the folder containing the database should also have write permissions as some temp files are created.
